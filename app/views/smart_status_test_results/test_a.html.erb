@@ -1,0 +1,66 @@
+<div id="smart-status-test-a">
+  <%= simple_form_for @test_wizard, as: :test_wizard, url: validate_step_smart_status_test_result_path do |f| %>
+    <%= f.error_notification %>
+
+    <%= hidden_field_tag :current_step, 'test_a' %>
+
+    <h2>Test A</h2>
+    <p><i>Instructions: please configure the settings to match your instructed task below.</i>
+      <br>
+      <br>
+      <b>Task</b>
+      <br>Given that Green ("On-track") means the ideal enrollment for job program,
+      <br>and Red ("Off Track") means poor enrollment...
+      <br>Can you configure the setting below such that the data looks like this?
+      <br>
+      <br>
+      <%= image_tag 'test-a-above-below.png', class: 'example-measure' %>
+    </p>
+    <p class="highlight-instructions">Please match your settings below with this image above.</p>
+
+    <h3>Logic Builder</h3>
+
+    <%= f.input 'test_a_field_1_status',
+      required: false,
+      label: 'What status do you want to display on your measure?',
+      label_html: { class: 'inline right-padded' } do %>
+
+      <%= f.select 'test_a_field_1_status', options_for_test_a_field_1_status %>
+    <% end -%>
+
+    <%= f.input 'test_a_field_1_above_below',
+      required: false,
+      label: 'Do you want to display this status as above or below your current target?',
+      label_html: { class: 'inline right-padded' } do %>
+
+      <%= f.select 'test_a_field_1_above_below', options_for_test_a_field_1_above_below %>
+    <% end -%>
+
+    <%= f.input 'test_a_field_1_status_override',
+      label: 'Optional: do you want to override the "On-track" label with other text? If yes, display ',
+      label_html: { class: 'inline right-padded' } %>
+
+    <h3>Yellow status "Near Target" (optional)</h3>
+
+    <%= f.input 'test_a_field_2_status',
+      label: 'What status do you want to display on your measure?',
+      label_html: { class: 'inline right-padded' } do %>
+
+      <%= f.select 'test_a_field_2_status', options_for_test_a_field_2_status %>
+    <% end -%>
+
+    <%= f.input 'test_a_field_2_number_value',
+      label: 'How many units above/below your current target?',
+      label_html: { class: 'above below inline right-padded' },
+      wrapper_html: { class: 'inline numeric-input' },
+      placeholder: '#' %>
+
+    <%= f.select 'test_a_field_2_above_below', options_for_test_a_field_2_above_below %>
+
+    <%= f.input 'test_a_field_2_status_override',
+      label: 'Optional: do you want to override the "Near target" label with other text? If yes, display ',
+      label_html: { class: 'inline right-padded' } %>
+
+    <%= f.submit 'Save result', class: 'save' %>
+  <% end -%>
+</div>

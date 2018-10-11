@@ -1,0 +1,84 @@
+<div id="smart-status-test-c">
+  <%= simple_form_for @test_wizard, as: :test_wizard, url: validate_step_smart_status_test_result_path do |f| %>
+    <%= f.error_notification %>
+
+    <%= hidden_field_tag :current_step, 'test_c' %>
+
+    <h2>Test C</h2>
+    <p><i>Instructions: please configure the settings to match your instructed task below.</i>
+      <br>
+      <br>
+      <b>Task</b>
+      <br> Given that Green ("On-track") means transportation spending is on budget,
+      <br>Yellow ("Near target") means overspending,
+      <br>and Red ("Off-track") means poor spending...
+      <br> Can you configure the setting below such that the data looks like this?
+      <br>
+      <br>
+      <%= image_tag 'test-c-above-below.png', class: 'example-measure' %>
+    </p>
+    <p class="highlight-instructions">Please match your settings below with this image above.</p>
+
+    <table class="smart-status-config-table">
+      <tr class="header">
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Status text override</th>
+      </tr>
+      <tr class="required-fields">
+        <td>
+          If calculated value is
+        </td>
+        <td>
+          <%= f.input 'test_c_field_1_above_below', label: false do %>
+            <%= f.select 'test_c_field_1_above_below', options_for_test_c_field_1_above_below %>
+          <% end -%>
+        </td>
+        <td>
+          the target, then show status as
+        </td>
+        <td>
+          <%= f.input 'test_c_field_1_status', label: false do %>
+            <%= f.select 'test_c_field_1_status', options_for_test_c_field_1_status %>
+          <% end -%>
+        </td>
+        <td>
+          <%= f.input 'test_c_field_1_status_override', label: false %>
+        </td>
+      </tr>
+      <tr class="optional-fields hidden">
+        <td>
+          Optional: If calculated value is within
+        </td>
+        <td>
+          <%= f.input 'test_c_field_2_number_value',
+            label: false,
+            placeholder: '#',
+            wrapper_html: { class: 'inline numeric-input' } %>
+
+          <%= f.input 'test_c_field_2_above_below', label: false, wrapper_html: { class: 'inline' } do %>
+            <%= f.select 'test_c_field_2_above_below', options_for_test_c_field_2_above_below %>
+          <% end -%>
+        </td>
+        <td>
+          the target, then show status as
+        </td>
+        <td>
+          <%= f.input 'test_c_field_2_status', label: false do %>
+            <%= f.select 'test_c_field_2_status', options_for_test_c_field_2_status %>
+          <% end -%>
+        </td>
+        <td>
+          <%= f.input 'test_c_field_2_status_override', label: false %>
+        </td>
+      </tr>
+    </table>
+
+    <%= f.submit '< Back', class: 'back', name: 'back' %>
+    <%= f.submit 'Save Result', class: 'save' %>
+
+    <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+  <% end -%>
+</div>

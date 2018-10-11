@@ -1,0 +1,86 @@
+<div id="smart-status-test-d">
+  <%= simple_form_for @test_wizard, as: :test_wizard, url: validate_step_smart_status_test_result_path do |f| %>
+    <%= f.error_notification %>
+
+    <%= hidden_field_tag :current_step, 'test_d' %>
+
+    <h2>Test D</h2>
+    <p><i>Instructions: please configure the settings to match your instructed task below.</i>
+      <br>
+      <br>
+      <b>Task</b>
+      <br>Given that Green ("On-track") means the ideal number of crews on duty
+      <br>Yellow ("Near target") means an okay number of crews on duty,
+      <br>and Red ("Off Track") means too few/too many crews on duty...
+      <br>Can you configure the setting below such that the data looks like this?
+      <br>
+      <br>
+      <%= image_tag 'test-d-range.png', class: 'example-measure' %>
+    </p>
+    <p class="highlight-instructions">Please match your settings below with this image above.</p>
+
+    <h3>Logic Builder</h3>
+
+    <%= f.input 'test_d_field_1_status',
+      required: false,
+      label: 'Status:',
+      label_html: { class: 'inline' } do %>
+
+      <%= f.select 'test_d_field_1_status', options_for_test_d_field_1_status %>
+    <% end -%>
+
+    <div class="angle inline"></div>
+    <%= f.input 'test_d_field_1_number_value',
+      label: 'Condition: ±',
+      label_html: { class: 'inline' },
+      wrapper_html: { class: 'inline numeric-input' },
+      placeholder: '#' %>
+    <div class="inline">
+      units from the target
+    </div>
+
+    <br/>
+
+    <div class="angle inline"></div>
+    <%= f.input 'test_d_field_1_status_override',
+      label: 'Optional: Override existing status label with',
+      label_html: { class: 'inline' },
+      wrapper_html: { class: 'inline' } %>
+
+    <br/>
+    <br/>
+
+    <%= f.input 'test_d_field_2_status',
+      required: false,
+      label: 'Status:',
+      label_html: { class: 'inline' } do %>
+
+      <%= f.select 'test_d_field_2_status', options_for_test_d_field_2_status %>
+    <% end -%>
+
+    <div class="angle inline"></div>
+    <%= f.input 'test_d_field_2_number_value',
+      label: 'Condition: ±',
+      label_html: { class: 'inline' },
+      wrapper_html: { class: 'inline numeric-input' },
+      placeholder: '#' %>
+    <div class="inline">
+      units from the target
+    </div>
+
+    <br/>
+
+    <div class="angle inline"></div>
+    <%= f.input 'test_d_field_2_status_override',
+      label: 'Optional: Override existing status label with',
+      label_html: { class: 'inline' },
+      wrapper_html: { class: 'inline' } %>
+
+    <h3>Red status ("Off-track") will automatically be calculated for you</h3>
+
+    <%= f.submit '< Back', class: 'back', name: 'back' %>
+    <%= f.submit 'Save Result', class: 'save' %>
+
+    <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+  <% end -%>
+</div>

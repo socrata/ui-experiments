@@ -1,0 +1,136 @@
+// Place all the styles related to the SmartStatusTestResults controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+h3 {
+  margin-top: 2rem;
+}
+
+table {
+  padding: 15px;
+}
+
+th {
+   border-bottom: 1px solid black;
+   border-collapse: collapse;
+   text-align: left;
+}
+
+ .smart-status-config-table {
+   td {
+     width: 20%;
+   }
+ }
+
+.save {
+  background-color: #288DC1; /* Teal */
+  border: none;
+  color: #ffffff;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.back {
+  background-color: transparent;
+  border: none;
+  color: #0000EE;
+  font-size: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.inline {
+  display: inline-block;
+}
+
+label.inline {
+  margin-right: 0.6rem;
+}
+
+.right-padded {
+  width: 500px;
+}
+
+.field_with_errors {
+  background-color: pink;
+
+  .error {
+    display: block;
+  }
+}
+
+input[type=text], input[type=number], select {
+  width: 8rem;
+  height: 1.2rem;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+select {
+  height: 1.4rem;
+}
+
+.input {
+  margin-top: 0.6rem;
+
+  input {
+    vertical-align: top;
+  }
+}
+
+.numeric-input {
+  input {
+    width: 3rem;
+  }
+}
+
+img.example-measure {
+  width: 60%;
+  min-width: 700px;
+}
+
+.smart-status-test-finished {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.smart-status-survey-code {
+  border: 1px solid black;
+  background-color:  #ffffe6;
+  padding: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: fit-content;
+  margin: 0 auto;
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.angle {
+  transform: rotate(180deg);
+  width: 1.6rem;
+
+  &:before {
+    content: '\20E7';
+    font-size: 1.2rem;
+    left: 1.2rem;
+    position: relative;
+  }
+}
+
+.highlight-instructions {
+  font-size: 1rem;
+  font-style: italic;
+  font-weight: bold;
+}
