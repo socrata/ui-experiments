@@ -1,0 +1,77 @@
+<div id="smart-status-test-b">
+  <%= simple_form_for @test_wizard, as: :test_wizard, url: validate_step_smart_status_test_result_path do |f| %>
+    <%= f.error_notification %>
+
+    <%= hidden_field_tag :current_step, 'test_b' %>
+
+    <h2>Test B</h2>
+    <p><i>Instructions: please configure the settings to match your instructed task below.</i>
+      <br>
+      <br>
+      <b>Task</b>
+      <br>Given that Green ("On-track") means the ideal police response rate,
+      <br>Yellow ("Near target") means an okay response rate
+      <br>and Red ("Off Track") means a poor response rate...
+      <br> Can you configure the setting below such that the data looks like this?
+      <br>
+      <br>
+      <%= image_tag 'test-b-range.png', class: 'example-measure' %>
+    </p>
+    <p class="highlight-instructions">Please match your settings below with this image above.</p>
+
+    <table class="smart-status-config-table">
+      <tr class="header">
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>Status text override</th>
+      </tr>
+      <tr class="required-fields">
+        <td>
+          If calculated value is ±
+        </td>
+        <td>
+          <%= f.input 'test_b_field_1_number_value', label: false %>
+        </td>
+        <td>
+          units of the target, then show status as
+        </td>
+        <td>
+          <%= f.input 'test_b_field_1_status', label: false do %>
+            <%= f.select 'test_b_field_1_status', options_for_test_b_field_1_status %>
+          <% end -%>
+        </td>
+        <td>
+          <%= f.input 'test_b_field_1_status_override', label: false %>
+        </td>
+      </tr>
+      <tr class="optional-fields hidden">
+        <td>
+          If calculated value is ±
+        </td>
+        <td>
+          <%= f.input 'test_b_field_2_number_value', label: false %>
+        </td>
+        <td>
+          units of the target, then show status as
+        </td>
+        <td>
+          <%= f.input 'test_b_field_2_status', label: false do %>
+            <%= f.select 'test_b_field_2_status', options_for_test_b_field_2_status %>
+          <% end -%>
+        </td>
+        <td>
+          <%= f.input 'test_b_field_2_status_override', label: false %>
+        </td>
+      </tr>
+    </table>
+
+    <h3>Red status ("Off-track") will automatically be calculated for you</h3>
+
+    <%= f.submit '< Back', class: 'back', name: 'back' %>
+    <%= f.submit 'Save Result', class: 'save' %>
+
+    <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+  <% end -%>
+</div>

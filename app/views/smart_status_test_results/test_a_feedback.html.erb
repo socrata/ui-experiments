@@ -1,0 +1,18 @@
+<%= simple_form_for @test_wizard, as: :test_wizard, url: validate_step_smart_status_test_result_path do |f| %>
+  <%= f.error_notification %>
+
+  <%= hidden_field_tag :current_step, 'test_a_feedback' %>
+
+  <div id="test-a-qualitative-feedback">
+    <%= f.input 'test_a_general_feedback',
+      as: :text,
+      label: 'Given what you just configured, what could have been done to make this better? What worked for you? What didn’t work for you? Please explain in detail.',
+      required: false,
+      input_html: { rows: 5, cols: 100 } %>
+  </div>
+
+  <%= f.submit '< Back', class: 'back', name: 'back' %>
+  <%= f.submit 'Continue', class: 'save inline' %>
+
+  <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+<% end -%>
