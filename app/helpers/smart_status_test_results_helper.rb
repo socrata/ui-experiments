@@ -130,6 +130,10 @@ module SmartStatusTestResultsHelper
     )
   end
 
+  def first_step?
+    session[:steps].first == @current_step
+  end
+
   private
 
   def get_saved_attribute(attr)

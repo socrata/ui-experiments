@@ -1,15 +1,5 @@
 module Wizard
   module SmartStatusTestResult
-    STEPS = %w(
-      test_a
-      test_a_feedback
-      test_b
-      test_b_feedback
-      test_c
-      test_c_feedback
-      test_d
-      test_d_feedback
-    ).freeze
 
     class Base
       include ActiveModel::Model
@@ -28,40 +18,40 @@ module Wizard
       validates :test_a_field_1_above_below, presence: true
     end
 
-    class TestAFeedback < TestA
+    class TestAFeedback < Base
       validates :test_a_general_feedback, presence: true
     end
 
-    class TestB < TestAFeedback
+    class TestB < Base
       validates :test_b_field_1_number_value, numericality: true
       validates :test_b_field_1_status, presence: true
 
       validates :test_b_field_2_number_value, numericality: true, allow_blank: true
     end
 
-    class TestBFeedback < TestB
+    class TestBFeedback < Base
       validates :test_b_general_feedback, presence: true
     end
 
-    class TestC < TestBFeedback
+    class TestC < Base
       validates :test_c_field_1_above_below, presence: true
       validates :test_c_field_1_status, presence: true
 
       validates :test_c_field_2_number_value, numericality: true, allow_blank: true
     end
 
-    class TestCFeedback < TestC
+    class TestCFeedback < Base
       validates :test_c_general_feedback, presence: true
     end
 
-    class TestD < TestCFeedback
+    class TestD < Base
       validates :test_d_field_1_number_value, presence: true, numericality: true
       validates :test_d_field_1_status, presence: true
 
       validates :test_d_field_2_number_value, numericality: true, allow_blank: true
     end
 
-    class TestDFeedback < TestD
+    class TestDFeedback < Base
       validates :test_d_general_feedback, presence: true
     end
   end

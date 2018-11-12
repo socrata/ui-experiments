@@ -4,7 +4,7 @@
 
     <%= hidden_field_tag :current_step, 'test_c' %>
 
-    <h2>Test C</h2>
+    <h2>Above/Below</h2>
     <p><i>Instructions: please configure the settings to match your instructed task below.</i>
       <br>
       <br>
@@ -76,9 +76,6 @@
       </tr>
     </table>
 
-    <%= f.submit '< Back', class: 'back', name: 'back' %>
-    <%= f.submit 'Save Result', class: 'save' %>
-
-    <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+    <%= render partial: 'submit', locals: { f: f } %>
   <% end -%>
 </div>

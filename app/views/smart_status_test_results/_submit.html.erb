@@ -1,0 +1,6 @@
+<%= f.submit '< Back', class: 'back', name: 'back' unless first_step? %>
+<%= f.submit 'Save Result', class: 'save' %>
+
+<% unless first_step? -%>
+  <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+<% end -%>

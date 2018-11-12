@@ -4,7 +4,7 @@
 
     <%= hidden_field_tag :current_step, 'test_d' %>
 
-    <h2>Test D</h2>
+    <h2>Range</h2>
     <p><i>Instructions: please configure the settings to match your instructed task below.</i>
       <br>
       <br>
@@ -78,9 +78,6 @@
 
     <h3>Red status ("Off-track") will automatically be calculated for you</h3>
 
-    <%= f.submit '< Back', class: 'back', name: 'back' %>
-    <%= f.submit 'Save Result', class: 'save' %>
-
-    <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+    <%= render partial: 'submit', locals: { f: f } %>
   <% end -%>
 </div>

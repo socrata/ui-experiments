@@ -11,8 +11,5 @@
       input_html: { rows: 5, cols: 100 } %>
   </div>
 
-  <%= f.submit '< Back', class: 'back', name: 'back' %>
-  <%= f.submit 'Save Result', class: 'save' %>
-
-  <p><i>Please use the "back" button to go back instead of the browser back button and avoid refreshing your browser.</i></p>
+  <%= render partial: 'submit', locals: { f: f } %>
 <% end -%>
