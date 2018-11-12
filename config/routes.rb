@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resource :smart_status_test_result do
-    get :start, to: 'smart_status_test_results#test_a'
+    get :start
     get :test_a
     get :test_a_feedback
     get :test_b

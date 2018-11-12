@@ -1,31 +1,37 @@
 class SmartStatusTestResultsController < ApplicationController
-  before_action :load_smart_status_test_result_wizard, except: %i(validate_step)
+  before_action :load_smart_status_test_result_wizard, except: %i(start validate_step)
+
+  def start
+    @current_step = session_steps.first
+    @test_wizard = wizard_smart_status_test_result_for_step(@current_step)
+    render @current_step
+  end
 
   def validate_step
-    current_step = params[:current_step]
+    @current_step = params[:current_step]
 
-    @test_wizard = wizard_smart_status_test_result_for_step(current_step)
+    @test_wizard = wizard_smart_status_test_result_for_step(@current_step)
     @test_wizard.smart_status_test_result.attributes = smart_status_test_result_params
     session[:smart_status_test_result_attributes] = @test_wizard.smart_status_test_result.attributes
 
     if go_back?
-      next_step = wizard_smart_status_test_result_previous_step(current_step)
+      next_step = wizard_smart_status_test_result_previous_step(@current_step)
     else
-      next_step = wizard_smart_status_test_result_next_step(current_step)
+      next_step = wizard_smart_status_test_result_next_step(@current_step)
     end
 
     if go_back? || @test_wizard.valid?
       create and return unless next_step
-
-      render next_step
-    else
-      render current_step
+      @current_step = next_step
     end
+
+    render @current_step
   end
 
   def create
     if @test_wizard.smart_status_test_result.save
       session[:smart_status_test_result_attributes] = nil
+      session[:steps] = nil
       render :finished, locals: { unique_survey_code: @test_wizard.smart_status_test_result.unique_survey_code }
     else
       redirect_to :error, alert: 'There was a problem saving your test results.'
@@ -33,6 +39,10 @@ class SmartStatusTestResultsController < ApplicationController
   end
 
   private
+
+  def session_steps
+    session[:steps] ||= %w(a b c d).shuffle.map { |test| ["test_#{test}", "test_#{test}_feedback"] }.flatten
+  end
 
   def go_back?
     params[:back].present?
@@ -47,15 +57,15 @@ class SmartStatusTestResultsController < ApplicationController
   end
 
   def wizard_smart_status_test_result_next_step(step)
-    Wizard::SmartStatusTestResult::STEPS[Wizard::SmartStatusTestResult::STEPS.index(step) + 1]
+    session_steps[session_steps.index(step) + 1]
   end
 
   def wizard_smart_status_test_result_previous_step(step)
-    Wizard::SmartStatusTestResult::STEPS[Wizard::SmartStatusTestResult::STEPS.index(step) - 1]
+    session_steps[session_steps.index(step) - 1]
   end
 
   def wizard_smart_status_test_result_for_step(step)
-    raise InvalidStep unless step.in?(Wizard::SmartStatusTestResult::STEPS)
+    raise InvalidStep unless step.in?(session_steps)
 
     "Wizard::SmartStatusTestResult::#{step.camelize}".constantize.new(session[:smart_status_test_result_attributes])
   end

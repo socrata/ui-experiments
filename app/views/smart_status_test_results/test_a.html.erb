@@ -4,7 +4,7 @@
 
     <%= hidden_field_tag :current_step, 'test_a' %>
 
-    <h2>Test A</h2>
+    <h2>Above/Below</h2>
     <p><i>Instructions: please configure the settings to match your instructed task below.</i>
       <br>
       <br>
@@ -61,6 +61,6 @@
       label: 'Optional: do you want to override the "Near target" label with other text? If yes, display ',
       label_html: { class: 'inline right-padded' } %>
 
-    <%= f.submit 'Save result', class: 'save' %>
+    <%= render partial: 'submit', locals: { f: f } %>
   <% end -%>
 </div>
