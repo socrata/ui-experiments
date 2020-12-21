@@ -1,0 +1,9 @@
+// Place all the styles related to the FlexibleLayouts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'react-grid-layout/css/styles.css';
+@import 'react-resizable/css/styles.css';
+
+.react-grid-item {
+  background-color: rgb(216, 216, 216);
+}

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'flexible_layouts/show'
   resource :smart_status_test_result do
     get :start
     get :test_a
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
 
     post :validate_step
   end
+
+  get '/flexible-layouts', to: 'flexible_layouts#show'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
