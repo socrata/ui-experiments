@@ -11,6 +11,7 @@ export default class ResponsiveLayout extends React.Component {
     verticalCompact: true,
     onLayoutChange: function() {},
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+    draggableHandle: '.draggable-handle'
   };
 
   state = {
@@ -24,20 +25,27 @@ export default class ResponsiveLayout extends React.Component {
     this.setState({ mounted: true });
   }
 
+  // generateDOM() {
+  //     const components = [
+  //       {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
+  //       {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
+  //       {i: 'c', x: 4, y: 0, w: 1, h: 2}
+  //     ]
+  //     return _.map(components, function(componentData, componentIndex) {
+  //       return (
+  //         <div key={componentIndex} className='react-grid-component'>
+  //           {/* <div className='component-react-grid'>{componentData.i}</div> */}
+  //         </div>
+  //       )
+  //     })
+  // }
+
   generateDOM() {
     return _.map(this.state.layouts.lg, function(l, i) {
       return (
-        <div key={i} className={l.static ? "static" : ""}>
-          {l.static ? (
-            <span
-              className="text"
-              title="This item is static and cannot be removed or resized."
-            >
-              Static - {i}
-            </span>
-          ) : (
-            <span className="text">{i}</span>
-          )}
+        <div key={i}>
+          <div className="drag-handle"></div>
+          <iframe src="https://kaylee-staging.test-socrata.com/dataset/Blood-Alcohol-UFO-Sightings-with-Panning/qbkr-6ijp/embed?width=inherit" frameBorder="0" style={{height: 'inherit', width: 'inherit', border:'0', padding: '0', margin: '0'}}></iframe>
         </div>
       );
     });
@@ -79,12 +87,12 @@ export default class ResponsiveLayout extends React.Component {
 }
 
 function generateLayout() {
-  return _.map(_.range(0, 25), function(item, i) {
-    var y = Math.ceil(Math.random() * 4) + 1;
+  return _.map(_.range(0, 3), function(item, i) {
+    var y = Math.ceil(Math.random() * 4) + 4;
     return {
-      x: Math.round(Math.random() * 5) * 2,
+      x: Math.round(Math.random() * 5) * 4,
       y: Math.floor(i / 6) * y,
-      w: 2,
+      w: 4,
       h: y,
       i: i.toString(),
       static: false

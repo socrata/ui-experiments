@@ -7,3 +7,12 @@
 .react-grid-item {
   background-color: rgb(216, 216, 216);
 }
+
+iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.drag-handle {
+  background: transparent url(images/drag_handle.png);
+}
