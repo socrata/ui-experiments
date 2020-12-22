@@ -2,6 +2,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 import React from 'react';
 import _ from "lodash";
 import ReactDOM from 'react-dom';
+
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 export default class ResponsiveLayout extends React.Component {
@@ -11,7 +12,7 @@ export default class ResponsiveLayout extends React.Component {
     verticalCompact: true,
     onLayoutChange: function() {},
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-    draggableHandle: '.draggable-handle'
+    draggableHandle: '.drag-handle'
   };
 
   state = {
@@ -25,27 +26,13 @@ export default class ResponsiveLayout extends React.Component {
     this.setState({ mounted: true });
   }
 
-  // generateDOM() {
-  //     const components = [
-  //       {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-  //       {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
-  //       {i: 'c', x: 4, y: 0, w: 1, h: 2}
-  //     ]
-  //     return _.map(components, function(componentData, componentIndex) {
-  //       return (
-  //         <div key={componentIndex} className='react-grid-component'>
-  //           {/* <div className='component-react-grid'>{componentData.i}</div> */}
-  //         </div>
-  //       )
-  //     })
-  // }
-
   generateDOM() {
     return _.map(this.state.layouts.lg, function(l, i) {
       return (
         <div key={i}>
           <div className="drag-handle"></div>
-          <iframe src="https://kaylee-staging.test-socrata.com/dataset/Blood-Alcohol-UFO-Sightings-with-Panning/qbkr-6ijp/embed?width=inherit" frameBorder="0" style={{height: 'inherit', width: 'inherit', border:'0', padding: '0', margin: '0'}}></iframe>
+          {l.src && <iframe src={l.src} width="429" height="350" style={{border: 0, padding: 0, margin: 0}}></iframe>}
+          {l.text && <div dangerouslySetInnerHTML={{ __html: l.text }}></div>}
         </div>
       );
     });
@@ -87,15 +74,27 @@ export default class ResponsiveLayout extends React.Component {
 }
 
 function generateLayout() {
-  return _.map(_.range(0, 3), function(item, i) {
+  const VISUALITZATIONS = [
+    { src: 'https://kaylee-staging.test-socrata.com/dataset/Combo-Chart-States-Cases/hxgh-e68h/embed?width=429&height=350'},
+    { src: 'https://kaylee-staging.test-socrata.com/dataset/Pie-Chart-With-Title-Description/r6h2-k5th/embed?width=429&height=350'},
+    { src: 'https://kaylee-staging.test-socrata.com/dataset/Timeline-Chart-States-Cases/9e9t-tiqm/embed?width=429&height=350'},
+    { src: 'https://kaylee-staging.test-socrata.com/dataset/Combo-Chart-States-Cases/hxgh-e68h/embed?width=429&height=350'},
+    { src: 'https://kaylee-staging.test-socrata.com/dataset/Annotations/29z7-rtcv/embed?width=429&height=350'},
+    { src: 'https://kaylee-staging.test-socrata.com/dataset/Column-Chart-States-Cases/8uic-976j/embed?width=429&height=350'},
+    { text: '<h1>Your Great Story Title</h1>' },
+    { text: 'div><i>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</i>'}
+  ]
+  return _.map(_.range(0, 8), function(item, i) {
     var y = Math.ceil(Math.random() * 4) + 4;
     return {
       x: Math.round(Math.random() * 5) * 4,
       y: Math.floor(i / 6) * y,
       w: 4,
-      h: y,
+      h: 9,
       i: i.toString(),
-      static: false
+      static: false,
+      src: VISUALITZATIONS[i].src,
+      text: VISUALITZATIONS[i].text
     };
   });
 }

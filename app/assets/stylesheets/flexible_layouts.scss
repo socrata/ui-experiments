@@ -5,7 +5,7 @@
 @import 'react-resizable/css/styles.css';
 
 .react-grid-item {
-  background-color: rgb(216, 216, 216);
+  background-color: transparent;
 }
 
 iframe {
@@ -14,5 +14,7 @@ iframe {
 }
 
 .drag-handle {
-  background: transparent url(images/drag_handle.png);
+  width: inherit;
+  height: inherit;
+  position: absolute;
 }
