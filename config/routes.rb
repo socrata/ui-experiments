@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'flexible_layouts/show'
   resource :smart_status_test_result do
     get :start
     get :test_a
