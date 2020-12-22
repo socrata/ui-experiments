@@ -1,12 +1,38 @@
 import { Responsive, WidthProvider } from 'react-grid-layout';
-import React from 'react';
+import * as React from 'react';
 import _ from "lodash";
-import ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom';
 import { BASIC_LAYOUT } from './basic-layout';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-export default class ResponsiveLayout extends React.Component {
+type Props = {
+  className: string,
+  cols: {string: number}
+  rowHeight: number,
+  draggableHandle: string,
+  verticalCompact: boolean,
+  compactType: string
+};
+
+type State = {
+  currentBreakpoint: string,
+  mounted: boolean,
+  layouts: {lg: Layout}
+};
+
+type Layout = LayoutItem[];
+type LayoutItem = {
+  i: string,
+  text: string,
+  src: string,
+  y: number,
+  x: number,
+  h: number,
+  w: number
+}
+
+export default class ResponsiveLayout extends React.Component<Props, State> {
   static defaultProps = {
     className: "layout",
     rowHeight: 30,
@@ -26,7 +52,7 @@ export default class ResponsiveLayout extends React.Component {
   }
 
   generateDOM() {
-    return _.map(this.state.layouts.lg, function(item, i) {
+    return _.map(this.state.layouts.lg, function(item: LayoutItem, i: number) {
       return (
         <div key={i}>
           <div className="drag-handle"></div>
@@ -37,7 +63,7 @@ export default class ResponsiveLayout extends React.Component {
     });
   }
 
-  onBreakpointChange = (breakpoint) => {
+  onBreakpointChange = (breakpoint: string) => {
     this.setState({
       currentBreakpoint: breakpoint
     });
@@ -71,7 +97,7 @@ export default class ResponsiveLayout extends React.Component {
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <ResponsiveLayout name="React" compactType={document.getElementById('story-container').className}/>,
+    <ResponsiveLayout compactType={document.getElementById('story-container').className}/>,
     document.getElementById('story-container'),
   )
 })
