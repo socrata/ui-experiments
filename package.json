@@ -1,6 +1,9 @@
 {
   "name": "ui-experiments",
   "private": true,
+  "engines": {
+    "node": "10.17.0"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
