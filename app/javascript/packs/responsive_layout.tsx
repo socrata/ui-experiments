@@ -3,6 +3,8 @@ import * as React from 'react';
 import _ from "lodash";
 import * as ReactDOM from 'react-dom';
 import { BASIC_LAYOUT } from './basic-layout';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
