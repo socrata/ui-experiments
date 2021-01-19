@@ -41,6 +41,11 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
     verticalCompact: false
   };
 
+  constructor(props) {
+    super(props);
+    // this.myRef = React.createRef();
+  }
+
   state = {
     currentBreakpoint: "lg",
     mounted: false,
@@ -51,6 +56,24 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
     this.setState({ mounted: true });
   }
 
+  // componentDidUpdate() {
+  //   console.log('component updated');
+  //   // const height = this.myRef.current.offsetHeight;
+  //   const height = document.querySelector('.paragraph').offsetHeight;
+
+  //   const newRowHeight = Math.ceil(height / 40) + 1;
+
+  //   if (this.state.layouts.lg[2].h !== newRowHeight) {
+  //     // const newLayout = this.state.layouts.lg
+  //     const layout = this.state.layouts.lg.map(item => ({ ...item }));
+
+  //     layout[2].h = newRowHeight;
+
+  //     this.setState({ layouts : { lg: layout }})
+  //   }
+  //   console.log(this.state.layouts.lg[2].h)
+  // }
+
   generateDOM() {
     return _.map(this.state.layouts.lg, function(item: LayoutItem, i: number) {
       return (
@@ -60,7 +83,7 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
           {item.text && <div dangerouslySetInnerHTML={{ __html: item.text }}></div>}
         </div>
       );
-    });
+    }.bind(this));
   }
 
   onBreakpointChange = (breakpoint: string) => {
@@ -69,6 +92,24 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
     });
   };
 
+  onWidthChange = (containerWidth: number, margin: [number, number], cols: number, containerPadding: [number, number]) => {
+    console.log('component updated');
+    // const height = this.myRef.current.offsetHeight;
+    const height = document.querySelector('.paragraph').offsetHeight;
+
+    const newRowHeight = Math.ceil(height / 40);
+
+    if (this.state.layouts.lg[2].h !== newRowHeight) {
+      // const newLayout = this.state.layouts.lg
+      const layout = this.state.layouts.lg.map(item => ({ ...item }));
+
+      layout[2].h = newRowHeight;
+
+      this.setState({ layouts : { lg: layout }})
+    }
+    console.log(this.state.layouts.lg[2].h)
+  }
+
   render() {
     return (
       <div>
@@ -76,6 +117,8 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
           {...this.props}
           layouts={this.state.layouts}
           onBreakpointChange={this.onBreakpointChange}
+          onWidthChange={this.onWidthChange}
+
           // WidthProvider option
           measureBeforeMount={true}
           verticalCompact={this.props.compactType == 'vertical'}
