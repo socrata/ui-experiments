@@ -6,6 +6,11 @@ import { BASIC_LAYOUT } from './basic-layout';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
+function calculateWH(heightPx) {
+  let h = Math.ceil(heightPx / 30);
+  return h;
+};
+
 type Props = {
   className: string,
   cols: {string: number}
@@ -52,9 +57,10 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
   }
 
   generateDOM() {
+    console.log(this.state.layouts.lg[2]);
     return _.map(this.state.layouts.lg, function(item: LayoutItem, i: number) {
       return (
-        <div key={i}>
+        <div key={i} data-grid={item}>
           <div className="drag-handle"></div>
           {item.src && <iframe src={item.src} width="429" height="350" style={{border: 0, padding: 0, margin: 0}}></iframe>}
           {item.text && <div dangerouslySetInnerHTML={{ __html: item.text }}></div>}
@@ -69,6 +75,20 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
     });
   };
 
+  onWidthChange = (containerWidth: number, margin: [number, number], cols: number, containerPadding: [number, number]) => {
+    // select text height and get the offset height
+    // set new height on component
+    const contentHeight = document.querySelector('.paragraph').offsetHeight;
+    const newHeight = calculateWH(contentHeight);
+    const currentLayout = this.state.layouts.lg;
+    const newLayout = currentLayout;
+    newLayout[2].h = newHeight;
+
+    this.setState({
+      layouts: { lg: newLayout }
+    });
+  }
+
   render() {
     return (
       <div>
@@ -78,6 +98,7 @@ export default class ResponsiveLayout extends React.Component<Props, State> {
           onBreakpointChange={this.onBreakpointChange}
           // WidthProvider option
           measureBeforeMount={true}
+          onWidthChange={this.onWidthChange}
           verticalCompact={this.props.compactType == 'vertical'}
         >
           {this.generateDOM()}
